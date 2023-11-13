@@ -52,7 +52,7 @@ public class UsuarioResource {
                     
                     break;
                 case 1:
-                    System.out.prgitintln("Alterar");
+                    System.out.println("Alterar");
                     List<Usuario> usuarios = UsuarioRepository.vizualizar(connManager);
                     for(Usuario usuarioList: usuarios){
                         System.out.println(usuarioList);
