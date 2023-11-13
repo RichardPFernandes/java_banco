@@ -22,8 +22,8 @@ public class Usuario {
     }
     
     public Usuario(String email, String senha) {
-        this.setNome(nome);
         this.setEmail(email);
+        this.setSenha(senha);
     }
 
     public void setId(int id) {
@@ -59,7 +59,7 @@ public class Usuario {
     }
 
     public String toString() {
-        return "Id: "+ this.getId() + "\nNome: " + this.getNome() + "\nEmail: " + this.getEmail() + "\nSenha: " + this.getSenha();
+        return "Id: "+ this.getId() + " Nome: " + this.getNome() + " Email: " + this.getEmail() + " Senha: " + this.getSenha();
     }
 
 }

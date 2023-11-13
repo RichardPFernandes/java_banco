@@ -66,60 +66,38 @@ public class UsuarioResource {
                     email = sc.nextLine();
                     System.out.println("Digite a senha do usuario que deseja alterar");
                     senha = sc.nextLine();
-                    usuario = new Usuario(nome, email, senha);
+                    usuario = new Usuario(id, nome, email, senha);
                     UsuarioRepository.Editar(usuario, connManager);
     
                     break;
                 case 2:
                     System.out.println("Excluir");
-                    PreparedStatement excluir = connManager.prepareStatement("DELETE FROM usuario WHERE id = ?");
-                    ps = connManager.prepareStatement("SELECT * FROM usuario");
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        System.out.println(rs.getInt("id") + " - " + rs.getString("nome") + " - " + rs.getString("email") + " - " + rs.getString("senha"));
+                    usuarios = UsuarioRepository.vizualizar(connManager);
+                    for(Usuario usuarioList: usuarios){
+                        System.out.println(usuarioList);
                     }
-                    ps.close();
-                    rs.close();
+          
                     System.out.println("Digite o id do usuario que deseja excluir");
                     id = sc.nextInt();
-                    usuario = new Usuario();
-                    usuario.setId(id);
-                    excluir.setInt(1, usuario.getId());
-                    excluir.execute();
-                    excluir.close();
-
-
-                    
+                    UsuarioRepository.Excluir(id, connManager);
+           
                     break;
                 case 3:
                     System.out.println("Visualizar");
-                    PreparedStatement visualizar = connManager.prepareStatement("SELECT * FROM usuario");
-                    rs = visualizar.executeQuery();
-                    while (rs.next()) {
-                        System.out.println(rs.getInt("id") + " - " + rs.getString("nome") + " - " + rs.getString("email") + " - " + rs.getString("senha"));
+                    usuarios = UsuarioRepository.vizualizar(connManager);
+                    for(Usuario usuarioList: usuarios){
+                        System.out.println(usuarioList);
                     }
-                    rs.close();
-                    visualizar.close();
+
                     break;
                 case 4:
                     System.out.println("Logar");
-                    PreparedStatement logar = connManager.prepareStatement("SELECT * FROM usuario WHERE email = ? AND senha = ?");
                     System.out.println("Digite o email");
                     email = sc.nextLine();
                     System.out.println("Digite a senha");
                     senha = sc.nextLine();
                     usuario = new Usuario(email, senha);
-                    logar.setString(1, usuario.getEmail());
-                    logar.setString(2, usuario.getSenha());
-                    ResultSet rs3 = logar.executeQuery();
-               
-                    if (rs3.next()) {
-                        System.out.println("Usuário encontrado");
-                    } else {
-                        System.out.println("Usuário não encontrado");
-                    }
-
-                    logar.close();
+                    UsuarioRepository.Logar(usuario, connManager);
                     break;
                 case 5:
                     System.out.println("Sair"); 

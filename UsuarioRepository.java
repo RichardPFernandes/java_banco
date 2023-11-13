@@ -40,4 +40,24 @@ public class UsuarioRepository {
         }
         return usuarios;
     }
+
+    public static void Excluir(int id, Connection conexao) throws SQLException {
+        PreparedStatement excluir = conexao.prepareStatement("DELETE FROM usuario WHERE id = ?");
+        excluir.setInt(1, id);
+        excluir.execute();
+        excluir.close();
+    }
+
+    public static void Logar(Usuario usuario, Connection conexao) throws SQLException {
+        PreparedStatement logar = conexao.prepareStatement("SELECT * FROM usuario WHERE email = ? AND senha = ?");
+        logar.setString(1, usuario.getEmail());
+        logar.setString(2, usuario.getSenha());
+        ResultSet rs3 = logar.executeQuery();
+        if (rs3.next()) {
+            System.out.println("Logado com sucesso");
+        } else {
+            System.out.println("Email ou senha incorretos");
+        }
+        logar.close();
+    }
 }
